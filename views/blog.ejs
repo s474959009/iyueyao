@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+|\     /|(  ____ \( \      ( \      (  ___  )
+| )   ( || (    \/| (      | (      | (   ) |
+| (___) || (__    | |      | |      | |   | |
+|  ___  ||  __)   | |      | |      | |   | |
+| (   ) || (      | |      | |      | |   | |
+| )   ( || (____/\| (____/\| (____/\| (___) |
+|/     \|(_______/(_______/(_______/(_______)  hello!,什么也没有~~
+-->
+<html>
+<head>
+    <title><%= title %></title>
+    <!--    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/type.css' />
+    <link rel='stylesheet' href='/stylesheets/cube.css' />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<header class="navbar navbar-fixed-top index-header" role="banner">
+    <div class="container">
+        <nav class="navbar" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">YueYao</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/topic">topic</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<div class="container index-section">
+    <h1><%= title %></h1>
+    <p>欢迎来到这里哦 <%= title %></p>
+    <footer class="g-footer">
+        Power By Node.js . Last post by <a href="">admin</a>, 3 days ago .
+    </footer>
+</div>
+
+
+<script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
+<script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+</body>
+</html>
