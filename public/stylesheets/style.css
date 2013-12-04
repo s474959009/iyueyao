@@ -14,3 +14,11 @@
     margin-top:58px ;
 }
 .g-footer{max-width: 500px;margin: 0 auto;text-align: center}
+.margin-base-vertical {
+    margin: 40px 0;
+}
+h1 {
+    font-family: "Abel", Arial, sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+}

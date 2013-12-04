@@ -31,7 +31,7 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">YueYao</a>
+              <a class="navbar-brand" href="/">YueYao</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
@@ -41,8 +41,9 @@
                   <li><a href="/blog">blog</a></li>
                   <li><a href="/admin">admin</a></li>
               </ul>
-
           </div>
+
+
       </nav>
       </div>
   </header>
@@ -50,14 +51,11 @@
 
   <div class="container index-section">
       <h1><%= title %></h1>
-      <p>欢迎来到这里哦 <%= title %></p>
-      <footer class="g-footer">
-          Power By Node.js . Last post by <a href="">admin</a>, 3 days ago .
-      </footer>
-  </div>
-
-
-    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
-    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
-  </body>
-</html>
+      <% if (user) { %>
+      <p>欢迎来到这里哦 <%= user.name %></p>
+      <% } else { %>
+      <p>欢迎来到这里哦 ,陌生的朋友</p>
+      <% } %>
+      <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
+      <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+      <%- include footer %>

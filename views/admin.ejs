@@ -32,7 +32,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">YueYao</a>
+                <a class="navbar-brand" href="/">YueYao</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -109,10 +109,7 @@
             </div>
         </div>
     </div>
-    <footer class="g-footer">
-        Power By Node.js .<!-- Last post by <a href="">admin</a>, 3 days ago .-->
-    </footer>
-</div>
+
 
 
 <script>
@@ -127,7 +124,15 @@
     $("#form").submit(function(e){
         e.preventDefault();
         var re = $("#form").serialize();
-        console.log(re);
+        $.ajax({
+            dataType:'json',
+            data:re,
+            url:'/post',
+            type:"post",
+            success:function(){
+                 alert('success');
+            }
+        })
     });
     /*
      * article save
@@ -144,4 +149,4 @@
 
 </script>
 
-</body></html>
+    <%- include footer %>
