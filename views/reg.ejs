@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+|\     /|(  ____ \( \      ( \      (  ___  )
+| )   ( || (    \/| (      | (      | (   ) |
+| (___) || (__    | |      | |      | |   | |
+|  ___  ||  __)   | |      | |      | |   | |
+| (   ) || (      | |      | |      | |   | |
+| )   ( || (____/\| (____/\| (____/\| (___) |
+|/     \|(_______/(_______/(_______/(_______)  hello!,什么也没有~~
+-->
+<html>
+<head>
+    <title>Login | iyueyao</title>
+    <!--    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/type.css' />
+    <link rel='stylesheet' href='/stylesheets/cube.css' />-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600' rel='stylesheet'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/type.css' />
+    <style>
+        body{
+            background: transparent;
+        }
+        html {
+            background: url(/images/bg.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        .login-panel{
+            max-width: 380px;
+            background: rgba(255,255,255,0.7);
+            border:1px solid #fff;
+            border-radius:5px;
+        }
+
+    </style>
+</head>
+<body>
+<header class="navbar navbar-fixed-top index-header" role="banner">
+    <div class="container">
+        <nav class="navbar" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">YueYao</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/topic">topic</a></li>
+                    <li><a href="/blog">blog</a></li>
+                    <li><a href="/admin">admin</a></li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+<div class="container index-section" style="background: transparent;">
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-4 login-panel ">
+
+            <h1 class="margin-base-vertical text-center">注册</h1>
+
+            <p id="newTitle">
+                Someone told me long ago there's a calm before the storm. I know, It's been comin for some time.
+            </p>
+            <p>
+                Now or Nerver.
+            </p>
+            <p>
+                <span id="newTime" class="pull-right"></span>
+            </p>
+            <form action="/reg" method="post" class="margin-base-vertical">
+                <p class="input-group">
+                    <span class="input-group-addon">昵称</span>
+                    <input type="text" class="form-control input-lg" name="name" placeholder="用户名" />
+                </p>
+                <p class="input-group">
+                    <span class="input-group-addon">密码</span>
+                    <input type="password" class="form-control input-lg" name="password" placeholder="密码" />
+                </p>
+                <p class="input-group">
+                    <span class="input-group-addon">确认</span>
+                    <input type="password" class="form-control input-lg" name="password-repeat" placeholder="确认密码" />
+                </p>
+                <p class="input-group">
+                    <span class="input-group-addon">邮箱</span>
+                    <input type="email" class="form-control input-lg" name="email" placeholder="邮箱" />
+                </p>
+                <p class="help-block text-center"><small>思萧条月曜夜 励浩荡风鸣冬 </small></p>
+                <p class="text-center">
+                    <button type="submit" class="btn btn-success"> 欢快的注册 </button>
+                </p>
+            </form>
+
+        </div>
+    </div>
+    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            var titleArr = [
+                '原谅别人，就是给自己心中留下空间，以便回旋',
+                '君子喻于义，小人喻于利',
+                '达人远见，不与物争。视利犹粪土之污，视权如鸿毛之轻',
+                '君子在下位则多谤，在上位则多誉；小人在下位则多誉，在上位则多谤',
+                '最远的旅行，是从自己的身体到自己的心，是从一个人的心到另一个人的心',
+                '快乐是吞咽的，悲伤是咀嚼的；如果咀嚼快乐，会嚼出悲伤来的',
+                '只要你明白要为自己的贪念计算和付出代价，你的心便会释然。困难是自己种出来的',
+                '一艺之成，当尽毕生之力',
+                '粮食补身体，书籍丰富智慧',
+                '好高骛远的一无所得，埋头苦干的获得知识'
+            ];
+            $("#newTitle").html(titleArr[(parseInt(Math.random()*10)+1)]);
+            $('#newTime').html(new Date().getFullYear()+" "+(new Date().getMonth()+1)+"."+new Date().getDate());
+        })
+    </script>
+    <%- include footer %>
