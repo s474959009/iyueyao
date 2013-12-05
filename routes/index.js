@@ -82,7 +82,12 @@ module.exports = function(app){
 		});
 	});
   app.get("/login",function(req,res){
-	  res.render('login',{title:'login'});
+	  res.render('login',{
+		  title:'login',
+		  user: req.session.user,
+		  success: req.flash('success').toString(),
+		  error: req.flash('error').toString()
+	  });
   });
 
 
