@@ -1,11 +1,14 @@
 /**
  * Created by hebo on 13-12-3.
  */
-module.exports = function(req,res){
+var index = function(req,res){
 	res.render('blog',{
-		title:'blog',
-		user: req.session.user,
-		success: req.flash('success').toString(),
-		error: req.flash('error').toString()
+		title:'blog'
+		,user: req.session.user
+		,success: req.flash('success').toString()
+		,error: req.flash('error').toString()
 	});
-}
+} ;
+
+
+exports.index = index;

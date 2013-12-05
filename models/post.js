@@ -4,15 +4,15 @@
 
 var mongodb = require('./db');
 
-function Post(name, title, post){
+function Post(name, title, post,type){
 	this.name = name;
 	this.title= title;
 	this.post = post;
+	this.type = type;
 }
 
-module.exports = Post;
-
 Post.prototype.save = function(callback){
+	console.log('post-save')
 	var date = new Date();
 	//存储各种时间格式，方便以后扩展
 	var time = {
@@ -25,10 +25,11 @@ Post.prototype.save = function(callback){
 	}
 	//要存入数据库的文档
 	var post = {
-		name: this.name,
-		time: time,
-		title: this.title,
-		post: this.post
+		name: this.name
+		,time: time
+		,title: this.title
+		,post: this.post
+		,type: this.type
 	};
 	//打开数据库
 	mongodb.open(function (err, db) {
@@ -57,7 +58,7 @@ Post.prototype.save = function(callback){
 
 
 //读取文章及其相关信息
-Post.get = function(name, callback) {
+Post.getByName = function(name, callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -86,3 +87,39 @@ Post.get = function(name, callback) {
 		});
 	});
 };
+//读取文章类型
+Post.getByType = function(type, callback) {
+	//打开数据库
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		//读取 posts 集合
+		db.collection('posts', function(err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			var query = {};
+			if (type) {
+				query.type = type;
+			}
+			//根据 query 对象查询文章
+			collection.find(query).sort({
+				time: -1
+			}).toArray(function (err, docs) {
+					mongodb.close();
+					if (err) {
+						return callback(err);//失败！返回 err
+					}
+					callback(null, docs);//成功！以数组形式返回查询的结果
+				});
+		});
+	});
+};
+
+Post.remove = function(){
+
+}
+
+module.exports = Post;

@@ -11,6 +11,7 @@
 	  "mongodb": "*",
 	  "connect-mongo": "*",
 	  "connect-flash": "*",
+	  "eventproxy": "*",
 	  "less":"*",
 	  "grunt":"*",
 	  "grunt-contrib-jshint": "~0.6.3",
