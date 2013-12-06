@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>-->
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/markdown/Markdown.Editor.css">
-
     <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script><style type="text/css"></style>
     <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <!-- markdown editor -->
@@ -128,8 +127,13 @@
             data:re,
             url:'/post',
             type:"post",
-            success:function(err,data){
-                 alert(data.msg+',success');
+            success:function(result){
+               if(result.status){
+                  alert(result.msg);
+               }
+            },
+            error:function(result){
+                alert('发布失败！')
             }
         })
     });

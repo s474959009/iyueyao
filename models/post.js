@@ -2,7 +2,8 @@
  * Created by hebo on 13-12-4.
  */
 
-var mongodb = require('./db');
+var mongodb = require('./db')
+	,markdown = require('markdown').markdown;
 
 function Post(name, title, post,type){
 	this.name = name;
@@ -82,6 +83,9 @@ Post.getByName = function(name, callback) {
 					if (err) {
 						return callback(err);//失败！返回 err
 					}
+					docs.forEach(function (doc) {
+						doc.post = markdown.toHTML(doc.post);
+					});
 					callback(null, docs);//成功！以数组形式返回查询的结果
 				});
 		});
@@ -112,6 +116,9 @@ Post.getByType = function(type, callback) {
 					if (err) {
 						return callback(err);//失败！返回 err
 					}
+					docs.forEach(function (doc) {
+						doc.post = markdown.toHTML(doc.post);
+					});
 					callback(null, docs);//成功！以数组形式返回查询的结果
 				});
 		});

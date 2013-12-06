@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .index-section{
     margin-top:58px ;
 }
-.g-footer{max-width: 500px;margin: 0 auto;text-align: center}
+.g-footer{margin-top: 40px;padding-top: 40px; padding-bottom: 40px;text-align: center;border-top: 1px solid #eee;}
 .margin-base-vertical {
     margin: 40px 0;
 }

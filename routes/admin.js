@@ -12,19 +12,19 @@ var index = function(req,res){
 	  })
 } ;
 
-var post = function(req,res,callback){
+var post = function(req,res){
 	var currentUser = req.session.user
 		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.type);
-	console.log(currentUser.name+'/'+req.body.title+'/'+req.body.post+'/'+req.body.type);
 	post.save(function (err) {
 		if (err) {
 			req.flash('error', err);
-			return res.redirect('/');
+			return res.send({status:'false',msg:err});
 		}
 		req.flash('success', '发布成功!');
-		res.redirect('/');//发表成功跳转到主页
+		res.send({status:'true',msg:'发布成功！'});
+
 	});
-}
+} ;
 
 
 exports.index = index ;

@@ -12,6 +12,8 @@
 	  "connect-mongo": "*",
 	  "connect-flash": "*",
 	  "eventproxy": "*",
+	  "markdown":"*",
+	  "qiniu":"*",
 	  "less":"*",
 	  "grunt":"*",
 	  "grunt-contrib-jshint": "~0.6.3",
