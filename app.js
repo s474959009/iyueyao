@@ -10,22 +10,21 @@ var http = require('http');
 var path = require('path');
 
 var MongoStore = require('connect-mongo')(express);
-var settings = require('./setting');
+var settings = require('./config');
 var flash = require('connect-flash');
 var User = require('./models/user') ;
 var app = express();
-
-var qiniu = require('qiniu');
 
 
 // all environments
 app.set('port', process.env.PORT || 8888);
 app.set('views', __dirname + '/views');
+
 app.set('view engine', 'ejs');
 app.use(flash());
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.bodyParser());
+app.use(express.bodyParser({keepExtensions: true,uploadDir:'./uploads'}));
 app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({
@@ -52,7 +51,3 @@ routes(app);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
-
-
-qiniu.conf.ACCESS_KEY = 'lk4BiqmRgjqVV5ZA39xZxfPgQURZkevO2cb_0ckY' ;
-qiniu.conf.SECRET_KEY = '7KOQICXRJcr1wIBSauQTc4nprlDYsYsVvbsWOM3v' ;

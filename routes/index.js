@@ -11,7 +11,8 @@ var admin = require('./admin')
 	,login = require('./login')
 	,register =require('./register')
 	,User = require('../models/user')
-	,Post = require('../models/post.js');
+	,Post = require('../models/post.js')
+	,upload = require('./upload');
 
 module.exports = function(app){
 
@@ -33,12 +34,16 @@ module.exports = function(app){
 	app.post('/post', checkLogin);
 	app.post('/post', admin.post);
 
+	app.post('/upload',upload.index);
+
 
 	app.get('/admin',checkLogin);
 	app.get('/admin',admin.index);
 
 	app.get('/topic',topic.index);
+
 	app.get('/blog',blog.index);
+	app.get('/blog/:day/:title', blog.detail);
 };
 
 function checkLogin(req, res, next) {

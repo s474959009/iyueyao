@@ -1005,7 +1005,7 @@
         // Dismisses the hyperlink input box.
         // isCancel is true if we don't care about the input text.
         // isCancel is false if we are going to keep the text.
-        var close = function (isCancel) {
+        var close = function (isCancel) {       console.log('aa');
             util.removeEvent(doc.body, "keydown", checkEscape);
             var text = input.value;
 
@@ -1045,9 +1045,29 @@
 
             // The main dialog box.
             dialog = doc.createElement("div");
-            dialog.className = "modal hide fade";
+            dialog.className = "modal fade";
             dialog.style.display = "none";
 
+	          //warp dialog
+	          var warp_1 =  doc.createElement("div");
+	          warp_1.className = 'modal-dialog';
+	          dialog.appendChild(warp_1);
+	          var warp_2 =  doc.createElement("div");
+	          warp_2.className = 'modal-content';
+	          warp_1.appendChild(warp_2);
+
+		        var header = doc.createElement("div");
+		        header.className = "modal-header";
+		        header.innerHTML = '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>' +
+			        '<h4 class="modal-title"> '+title+' </h4>';
+	          warp_2.appendChild(header);
+		        var body = doc.createElement("div");
+		        body.className = "modal-body";
+	          warp_2.appendChild(body);
+		        var footer = doc.createElement("div");
+		        footer.className = "modal-footer";
+	          warp_2.appendChild(footer);
+	          /*
             // The header.
             var header = doc.createElement("div");
             header.className = "modal-header";
@@ -1067,7 +1087,10 @@
             // The dialog text.
             var question = doc.createElement("p");
             question.innerHTML = text;
-            question.style.padding = "5px";
+            question.style.padding = "5px";*/
+		        var question = doc.createElement("p");
+		        question.innerHTML = text;
+		        question.style.padding = "5px";
             body.appendChild(question);
 
             // The web form container for the text box and buttons.

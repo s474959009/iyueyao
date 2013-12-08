@@ -1,7 +1,7 @@
 /**
  * Created by hebo on 13-12-4.
  */
-var settings = require('../setting')
+var settings = require('../config')
 	,Db = require('mongodb').Db
 	,Connection = require('mongodb').Connection
 	,Server = require('mongodb').Server;

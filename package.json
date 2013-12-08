@@ -13,7 +13,7 @@
 	  "connect-flash": "*",
 	  "eventproxy": "*",
 	  "markdown":"*",
-	  "qiniu":"*",
+	  "node-qiniu":"*",
 	  "less":"*",
 	  "grunt":"*",
 	  "grunt-contrib-jshint": "~0.6.3",

@@ -4,17 +4,19 @@
     <link rel='stylesheet' href='/stylesheets/type.css' />
     <link rel='stylesheet' href='/stylesheets/cube.css' />-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css"><!--
-    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>-->
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/markdown/Markdown.Editor.css">
-    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script><style type="text/css"></style>
+    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
     <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <!-- markdown editor -->
     <script src="/markdown/Markdown.Converter.js"></script>
     <script src="/markdown/Markdown.extra.js"></script>
     <script src="/markdown/Markdown.Sanitizer.js"></script>
     <script src="/markdown/Markdown.Editor.js"></script>
+    <script src="/javascripts/ajaxfileupload.js"></script>
+    <script src="/javascripts/bootstrap-modal.js"></script>
 
 </head>
 <body style="">
@@ -97,6 +99,29 @@
                         <button type="submit" class="btn btn-success ">提 交</button>
                 </div>
                 </form>
+                <!-- 图片上传 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">上传图片</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="file" name="pic" id="file">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">确定</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- jsfiddle.net -->
+
+                <div class="modal hide fade in" style="display: block;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a> <h3>嵌入演示代码</h3></div><div class="modal-body"><p style="padding: 5px;">填写在 <a href="http://jsfiddle.net/" target="_blank">http://jsfiddle.net/</a> 获取的嵌入链接(embed)</p><form style="padding: 0px; margin: 0px;"><input type="text" style="display: block; width: 80%; margin-right: auto; margin-left: auto;"></form></div><div class="modal-footer"><button class="btn btn-primary" type="button">OK</button><button class="btn btn-primary" type="button">Cancel</button></div></div>
+
             </div>
         </div>
         <div class="col-md-4">
@@ -107,9 +132,6 @@
             </div>
         </div>
     </div>
-
-
-
 <script>
     /* editor */
     var converter1 =new  Markdown.Converter();
@@ -130,6 +152,7 @@
             success:function(result){
                if(result.status){
                   alert(result.msg);
+                   localStorage.setItem("textarea_article_add_title",'');
                }
             },
             error:function(result){
@@ -149,7 +172,42 @@
     $("#title").keyup(function(){
         localStorage.setItem("textarea_article_add_title",this.value) ;
     });
+    //images upload
+    editor1.hooks.set('insertImageDialog', function(callback) {
+        $('#myModal').modal({
+            keyboard: false ,
+            show:true
+        }) ;
+        $("#file")[0].onchange=function(){
+            $.ajaxFileUpload({
+                url:"/upload",
+                secureuri:false,
+                fileElementId:'file',
+                dataType: 'json',
+                success: function (data, status)
+                {
+                    if(data.status){
+                        alert(data.msg);
+                        $("#myModal").modal("hide");
+                        callback(data.img)
+                    }
+/*                    if(data.success){
+                        callback(data.data.filename)
 
+                    }else{
+                       // messageTip.show(data.info)
+                       console.log(data.info)
+                    }*/
+                    //loadingTip.hide()
+                },
+                error:function(err){
+
+                    alert('失败');
+                }
+            })
+        };
+        return true; // tell the editor that we'll take care of getting the image url
+    });
 </script>
 
     <%- include footer %>

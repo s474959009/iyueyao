@@ -4,7 +4,7 @@
 var Post = require('../models/post');
 
 var index = function(req,res){
-	Post.getByName(null, function (err, posts) {
+	Post.getAll(null, function (err, posts) {
 		if (err) {
 			posts = [];
 		}
