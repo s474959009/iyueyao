@@ -4,12 +4,18 @@
 var Post = require('../models/post');
 
 var index = function(req,res){
-	  res.render('admin',{
-		  title:'admin'
-		  ,user: req.session.user
-		  ,success: req.flash('success').toString()
-		  ,error: req.flash('error').toString()
-	  })
+	Post.getAll(null, function (err, posts) {
+		if (err) {
+			posts = [];
+		}
+		res.render('admin', {
+			title: 'Admin',
+			user: req.session.user,
+			posts: posts,
+			success: req.flash('success').toString(),
+			error: req.flash('error').toString()
+		});
+	});
 } ;
 
 var post = function(req,res){
@@ -22,10 +28,32 @@ var post = function(req,res){
 		}
 		req.flash('success', '发布成功!');
 		res.send({status:'true',msg:'发布成功！'});
-
 	});
 } ;
+
+var edit = function(req,res){
+	res.render('edit', {
+		title: 'edit',
+		user: req.session.user,
+		success: req.flash('success').toString(),
+		error: req.flash('error').toString()
+	});
+} ;
+
+var remove = function(req,res){
+	var currentUser = req.session.user;
+	Post.remove( req.params.day, req.params.title, function (err) {
+		if (err) {
+			req.flash('error', err);
+			return res.redirect('back');
+		}
+		req.flash('success', '删除成功!');
+		res.redirect('/');
+	});
+}
 
 
 exports.index = index ;
 exports.post = post ;
+exports.edit = edit ;
+exports.remove = remove ;

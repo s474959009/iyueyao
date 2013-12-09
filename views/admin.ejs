@@ -1,11 +1,7 @@
 <html><head>
     <title>admin</title>
-    <!--    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/type.css' />
-    <link rel='stylesheet' href='/stylesheets/cube.css' />-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/markdown/Markdown.Editor.css">
     <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
@@ -17,6 +13,8 @@
     <script src="/markdown/Markdown.Editor.js"></script>
     <script src="/javascripts/ajaxfileupload.js"></script>
     <script src="/javascripts/bootstrap-modal.js"></script>
+    <script src="/javascripts/tab.js"></script>
+    <script src="/javascripts/jqBootstrapValidation.js"></script>
 
 </head>
 <body style="">
@@ -49,87 +47,127 @@
 
 
 <div class="container index-section">
-
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="admin-main">
                 <h1>admin</h1>
-                <p>欢迎回来 admin</p>
-                <hr>
             </div>
-            <div class="admin-main">
-                <form role="form" id="form">
-                    <div class="form-group">
-                        <label for="blog-title">文章写作 （新文章）</label>
-                        <input type="text" name="title" class="form-control" id="blog-title" placeholder="标题">
-                    </div>
-                    <div class="form-group">
-                        <div id="admin-markdowneditor">
-                            <div id="seeeditor" class="tab-pane">
-                                <div class="tab-content">
-                                    <div id="markdowneditor" class="tab-pane active">
-                                        <div id="wmd-editor-parent" class="control-group">
-                                            <div id="wmd-editor-con" class="wmd-panel">
-                                                <div class="padding">
-                                                    <div id="wmd-bar-parent">
-                                                        <div id="wmd-button-bar">
-                                                            <div id="wmd-button-row" class="btn-toolbar">
-                                                            </div>
 
+            <div id="admin-tab" class="tab-content">
+                <!-- 编辑器 -->
+                <div class="tab-pane fade" id="article">
+                    <form role="form" id="form">
+                        <div class="form-group">
+                            <label for="blog-title"><h3>文章写作 （新文章）</h3></label>
+                            <input type="text" name="title" class="form-control" id="blog-title" placeholder="标题">
+                        </div>
+                        <div class="form-group">
+                            <div id="admin-markdowneditor">
+                                <div id="seeeditor" class="tab-pane">
+                                    <div class="tab-content">
+                                        <div id="markdowneditor" class="tab-pane active">
+                                            <div id="wmd-editor-parent" class="control-group">
+                                                <div id="wmd-editor-con" class="wmd-panel">
+                                                    <div class="padding">
+                                                        <div id="wmd-bar-parent">
+                                                            <div id="wmd-button-bar">
+                                                                <div id="wmd-button-row" class="btn-toolbar">
+                                                                </div>
+
+                                                            </div>
                                                         </div>
+                                                        <textarea id="wmd-input" name="post" placeholder="文章内容，markdown语法。如果没有写完，可以直接关闭页面，下次打开内容仍然会在。" class="expand wmd-input"></textarea>
                                                     </div>
-                                                    <textarea id="wmd-input" name="post" placeholder="文章内容，markdown语法。如果没有写完，可以直接关闭页面，下次打开内容仍然会在。" class="expand wmd-input"></textarea>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="control-group">
+                                            <script type="text/plain" id="myEditor"></script>
+                                        </div>
                                     </div>
-                                    <div class="control-group">
-                                        <script type="text/plain" id="myEditor"></script>
-                                    </div>
+                                    <div id="wmd-preview-parent" class="control-group"><div id="wmd-preview-con" class="wmd-panel wmd-preview"><div class="padding"><div id="wmd-preview"></div></div></div></div>
                                 </div>
-                                <div id="wmd-preview-parent" class="control-group"><div id="wmd-preview-con" class="wmd-panel wmd-preview"><div class="padding"><div id="wmd-preview"></div></div></div></div>
                             </div>
+                            <div class="checkbox">
+                                <label>
+                                    <!--<input type="checkbox" name="index-send"> 首页推荐-->
+                                    <input type="hidden" name='type' value="blog"/>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-success ">提 交</button>
                         </div>
-                        <div class="checkbox">
-                            <label>
-                                <!--<input type="checkbox" name="index-send"> 首页推荐-->
-                                <input type="hidden" name='type' value="blog"/>
-                            </label>
-                        </div>
-                        <button type="submit" class="btn btn-success ">提 交</button>
-                </div>
-                </form>
-                <!-- 图片上传 -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">上传图片</h4>
-                            </div>
-                            <div class="modal-body">
-                                <input type="file" name="pic" id="file">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                                <button type="button" class="btn btn-primary">确定</button>
+                    </form>
+                    <!-- 图片上传 -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">上传图片</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="file" name="pic" id="file">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-primary">确定</button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- jsfiddle.net -->
+                    <div class="modal hide fade in" style="display: block;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a> <h3>嵌入演示代码</h3></div><div class="modal-body"><p style="padding: 5px;">填写在 <a href="http://jsfiddle.net/" target="_blank">http://jsfiddle.net/</a> 获取的嵌入链接(embed)</p><form style="padding: 0px; margin: 0px;"><input type="text" style="display: block; width: 80%; margin-right: auto; margin-left: auto;"></form></div><div class="modal-footer"><button class="btn btn-primary" type="button">OK</button><button class="btn btn-primary" type="button">Cancel</button></div></div>
+                    </div>
+                <div class="tab-pane fade" id="topic">
+                   <h3>新建专题</h3>
                 </div>
+                <div class="tab-pane fade" id="Manage">
+                    <h3>管理</h3>
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Type</th>
+                                <th>Title</th>
+                                <th>last modify</th>
+                                <th>pv</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% posts.forEach(function (post, index) { %>
+                            <tr>
+                                <td><%- index %></td>
+                                <td><%- post.type %></td>
+                                <td><a href="/blog/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></td>
+                                <td><%- post.time.minute %></td>
+                                <td>pv</td>
+                                <td><a href="/admin/edit/<%= post.time.day %>/<%= post.title %>">Edit</a> &nbsp;&nbsp;
+                                    <a href="/admin/remove/<%= post.time.day %>/<%= post.title %>">Delete</a></td>
+                            </tr>
 
-                <!-- jsfiddle.net -->
+                            <% }) %>
+                            </tbody>
 
-                <div class="modal hide fade in" style="display: block;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a> <h3>嵌入演示代码</h3></div><div class="modal-body"><p style="padding: 5px;">填写在 <a href="http://jsfiddle.net/" target="_blank">http://jsfiddle.net/</a> 获取的嵌入链接(embed)</p><form style="padding: 0px; margin: 0px;"><input type="text" style="display: block; width: 80%; margin-right: auto; margin-left: auto;"></form></div><div class="modal-footer"><button class="btn btn-primary" type="button">OK</button><button class="btn btn-primary" type="button">Cancel</button></div></div>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade active in" id="settings">
+                    <h3>系统设定</h3>
 
+                </div>
             </div>
+
         </div>
-        <div class="col-md-4">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">新建博文</button>
-                <button type="button" class="btn btn-default">新建专题</button>
-                <button type="button" class="btn btn-default">新建专题</button>
-            </div>
+        <div class="col-md-2" >
+            <ul class="nav nav-pills nav-stacked text-center">
+                <li><a href="#article" data-toggle="tab">New Article</a></li>
+                <li><a href="#topic" data-toggle="tab">New Topic</a></li>
+                <li><a href="#Manage" data-toggle="tab">Article Manage</a></li>
+                <li class="active"><a href="#settings" data-toggle="tab">Settings</a></li>
+            </ul>
         </div>
     </div>
 <script>
@@ -141,6 +179,8 @@
     /*
      form
      * */
+
+    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     $("#form").submit(function(e){
         e.preventDefault();
         var re = $("#form").serialize();
@@ -152,13 +192,13 @@
             success:function(result){
                if(result.status){
                   alert(result.msg);
-                   localStorage.setItem("textarea_article_add_title",'');
+                  localStorage.setItem("textarea_article_add",'');
                }
             },
             error:function(result){
                 alert('发布失败！')
             }
-        })
+        });
     });
     /*
      * article save
@@ -168,10 +208,11 @@
     $("#wmd-input").keyup(function(){
         localStorage.setItem("textarea_article_add",this.value)
     }) ;
-    $("#title").val(localStorage.getItem("textarea_article_add_title")) ;
-    $("#title").keyup(function(){
+    $("#blog-title").val(localStorage.getItem("textarea_article_add_title")) ;
+    $("#blog-title").keyup(function(){
         localStorage.setItem("textarea_article_add_title",this.value) ;
     });
+
     //images upload
     editor1.hooks.set('insertImageDialog', function(callback) {
         $('#myModal').modal({
@@ -208,6 +249,7 @@
         };
         return true; // tell the editor that we'll take care of getting the image url
     });
+
 </script>
 
     <%- include footer %>

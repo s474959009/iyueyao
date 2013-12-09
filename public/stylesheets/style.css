@@ -27,6 +27,9 @@ h1 {
     font-size: 40px;
 }
 
+.admin-main{
+    border-bottom: 1px dashed #ccc;
+}
 /*
 #myModal{
     width: 580px;margin: 0 auto;}*/

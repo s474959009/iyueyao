@@ -25,7 +25,7 @@ var index = function(req,res){
 			 var target_path = './uploads/' + req.files[i].name
 				 ,relpath = path.resolve(__dirname,'.'+target_path)
 				 ,filename = String(Math.random()*10).replace(/\./,'n')
-				 ,fileUrl = config.qiniu+'uploads/'+filename;
+				 ,fileUrl = setting.qiniu+'uploads/'+filename;
 
 				fs.rename(req.files[i].path, target_path,function(err){
 					  if(err) throw err;

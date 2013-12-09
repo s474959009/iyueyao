@@ -39,6 +39,10 @@ module.exports = function(app){
 
 	app.get('/admin',checkLogin);
 	app.get('/admin',admin.index);
+	app.get('/admin/edit/:day/:title',checkLogin);
+	app.get('/admin/edit/:day/:title',admin.edit);
+	app.get('/admin/remove/:day/:title',checkLogin);
+	app.get('/admin/remove/:day/:title',admin.remove);
 
 	app.get('/topic',topic.index);
 
