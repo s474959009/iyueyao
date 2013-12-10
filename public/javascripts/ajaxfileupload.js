@@ -99,9 +99,9 @@ jQuery.extend({
                     // Make sure that the request was successful or notmodified
                     if ( status != "error" )
                     {
-                        xml.responseText=xml.responseText.replace(/^[^{}]*?{/,"{").replace(/}[^{}]*?$/,"}")
+                        xml.responseText=xml.responseText.replace(/^[^{}]*?{/,"{").replace(/}[^{}]*?$/,"}") ;
                         // process the data (runs the xml through httpData regardless of callback)
-                        var data = jQuery.parseJSON(xml.responseText)
+                        var data = jQuery.parseJSON(xml.responseText)  ;
                         // If a local callback was specified, fire it and pass it the data
                         if ( s.success )
                             s.success( data, status );
@@ -135,7 +135,7 @@ jQuery.extend({
                         jQuery(form).remove();	
 											
                     } catch(e) 
-{
+										{
                         jQuery.handleError(s, xml, null, e);
                     }									
 
@@ -171,7 +171,7 @@ jQuery.extend({
             jQuery(form).submit();
 
         } catch(e) 
-{			
+				{
             jQuery.handleError(s, xml, null, e);
         }
 		

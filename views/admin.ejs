@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/style.css">
     <link rel="stylesheet" href="/markdown/Markdown.Editor.css">
-    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdn.staticfile.org/jquery/1.9.0/jquery.js"></script>
     <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
     <!-- markdown editor -->
     <script src="/markdown/Markdown.Converter.js"></script>
@@ -15,6 +15,10 @@
     <script src="/javascripts/bootstrap-modal.js"></script>
     <script src="/javascripts/tab.js"></script>
     <script src="/javascripts/jqBootstrapValidation.js"></script>
+    <style>
+        .btn{background: #f3f3f3;}
+        .btn.btn-success{background-color: #47a447;}
+    </style>
 
 </head>
 <body style="">
@@ -45,14 +49,12 @@
     </div>
 </header>
 
-
 <div class="container index-section">
     <div class="row">
         <div class="col-md-10">
             <div class="admin-main">
                 <h1>admin</h1>
             </div>
-
             <div id="admin-tab" class="tab-content">
                 <!-- 编辑器 -->
                 <div class="tab-pane fade" id="article">
@@ -121,6 +123,26 @@
                     </div>
                 <div class="tab-pane fade" id="topic">
                    <h3>新建专题</h3>
+                    <form role="form" id="topic-form">
+                        <div class="form-group">
+                            <div class="text-center">
+                                <img src="" alt="" class="img-thumbnail img-responsive hide" id="topic-showimg">
+                            </div>
+                            <div id="upload-img">
+                                <input type="file" name="pic" class="btn" id="topic-file">
+                            </div>
+                            <input type="hidden" name="img" id="topic-img" value=""/>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">标题</label>
+                            <input type="text" class="form-control" name="title" id="exampleInputPassword1" placeholder="标题">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="post" rows="3" placeholder="内容"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">发布</button>
+                        <input type="hidden" name="type" value="topic"/>
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="Manage">
                     <h3>管理</h3>
@@ -141,7 +163,7 @@
                             <tr>
                                 <td><%- index %></td>
                                 <td><%- post.type %></td>
-                                <td><a href="/blog/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></td>
+                                <td><a href="/<%= post.type %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></td>
                                 <td><%- post.time.minute %></td>
                                 <td>pv</td>
                                 <td><a href="/admin/edit/<%= post.time.day %>/<%= post.title %>">Edit</a> &nbsp;&nbsp;
@@ -193,6 +215,7 @@
                if(result.status){
                   alert(result.msg);
                   localStorage.setItem("textarea_article_add",'');
+                  localStorage.setItem("textarea_article_add_title",'');
                }
             },
             error:function(result){
@@ -249,7 +272,52 @@
         };
         return true; // tell the editor that we'll take care of getting the image url
     });
+    // topic imgpuload
 
+    $("#topic-file")[0].onchange=function(){
+        $.ajaxFileUpload({
+            url:"/upload",
+            secureuri:false,
+            fileElementId:'topic-file',
+            dataType: 'json',
+            success: function (data, status)
+            {
+                if(data.status){
+                    upSucc(data.img);
+                }
+            },
+            error:function(err){
+
+                alert('失败');
+            }
+        })
+
+        function upSucc(imgUrl){
+            $('#topic-img').val(imgUrl);
+            $('#topic-showimg').prop({'src':imgUrl}).removeClass('hide');
+            $('#upload-img').empty();
+        }
+    };
+
+    //topic submit
+    $("#topic-form").submit(function(e){
+        e.preventDefault();
+        var re = $("#topic-form").serialize();
+        $.ajax({
+            dataType:'json',
+            data:re,
+            url:'/post',
+            type:"post",
+            success:function(result){
+                if(result.status){
+                    alert(result.msg);
+                }
+            },
+            error:function(result){
+                alert('发布失败！')
+            }
+        });
+    });
 </script>
 
     <%- include footer %>

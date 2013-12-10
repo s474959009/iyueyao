@@ -5,15 +5,15 @@
 var mongodb = require('./db')
 	,markdown = require('markdown').markdown;
 
-function Post(name, title, post,type){
+function Post(name, title, post, img ,type){
 	this.name = name;
 	this.title= title;
 	this.post = post;
+	this.img = img;
 	this.type = type;
 }
 
 Post.prototype.save = function(callback){
-	console.log('post-save')
 	var date = new Date();
 	//存储各种时间格式，方便以后扩展
 	var time = {
@@ -31,6 +31,7 @@ Post.prototype.save = function(callback){
 		,title: this.title
 		,post: this.post
 		,type: this.type
+		,img: this.img
 	};
 	//打开数据库
 	mongodb.open(function (err, db) {
@@ -56,6 +57,7 @@ Post.prototype.save = function(callback){
 		});
 	});
 }
+
 //读取文章及其相关信息
 Post.getAll = function(name, callback) {
 	//打开数据库
@@ -123,7 +125,7 @@ Post.getByType = function(type, callback) {
 	});
 };
 
-Post.getOne = function( day, title, callback) {
+Post.getOne = function(day, title, type,callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -138,7 +140,8 @@ Post.getOne = function( day, title, callback) {
 			//根据用户名、发表日期及文章名进行查询
 			collection.findOne({
 				"time.day": day,
-				"title": title
+				"title": title ,
+				"type": type
 			}, function (err, doc) {
 				mongodb.close();
 				if (err) {

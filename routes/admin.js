@@ -20,7 +20,8 @@ var index = function(req,res){
 
 var post = function(req,res){
 	var currentUser = req.session.user
-		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.type);
+		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.img||'',req.body.type);
+
 	post.save(function (err) {
 		if (err) {
 			req.flash('error', err);

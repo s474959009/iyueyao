@@ -23,13 +23,14 @@ var index = function(req,res){
 				fs.unlinkSync(req.files[i].path);
 		} else {
 			 var target_path = './uploads/' + req.files[i].name
+				 ,baseSuffix = req.files[i].name.substring(req.files[i].name.lastIndexOf("."))
 				 ,relpath = path.resolve(__dirname,'.'+target_path)
 				 ,filename = String(Math.random()*10).replace(/\./,'n')
-				 ,fileUrl = setting.qiniu+'uploads/'+filename;
+				 ,fileUrl = setting.qiniu+'uploads/'+filename+baseSuffix;
 
 				fs.rename(req.files[i].path, target_path,function(err){
 					  if(err) throw err;
-						imagesBucket.putFile('uploads/'+filename, relpath, function(err, reply) {
+						imagesBucket.putFile('uploads/'+filename+baseSuffix, relpath, function(err, reply) {
 							fs.unlink(target_path, function(err){
 								if(err) throw err;
 							})

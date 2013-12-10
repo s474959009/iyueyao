@@ -45,6 +45,7 @@ module.exports = function(app){
 	app.get('/admin/remove/:day/:title',admin.remove);
 
 	app.get('/topic',topic.index);
+	app.get('/topic/:day/:title',topic.detail);
 
 	app.get('/blog',blog.index);
 	app.get('/blog/:day/:title', blog.detail);
