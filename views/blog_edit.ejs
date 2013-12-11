@@ -1,0 +1,183 @@
+<html><head>
+    <title>admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/markdown/Markdown.Editor.css">
+    <script src="http://cdn.staticfile.org/jquery/1.9.0/jquery.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <!-- markdown editor -->
+    <script src="/markdown/Markdown.Converter.js"></script>
+    <script src="/markdown/Markdown.extra.js"></script>
+    <script src="/markdown/Markdown.Sanitizer.js"></script>
+    <script src="/markdown/Markdown.Editor.js"></script>
+    <script src="/javascripts/ajaxfileupload.js"></script>
+    <script src="/javascripts/bootstrap-modal.js"></script>
+    <script src="/javascripts/tab.js"></script>
+    <script src="/javascripts/jqBootstrapValidation.js"></script>
+    <style>
+        .btn{background: #f3f3f3;}
+        .btn.btn-success{background-color: #47a447;}
+    </style>
+
+</head>
+<body style="">
+<header class="navbar navbar-fixed-top index-header" role="banner">
+    <div class="container">
+        <nav class="navbar" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">YueYao</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/topic">topic</a></li>
+                    <li><a href="/blog">blog</a></li>
+                    <li class="active"><a href="/admin">admin</a></li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container index-section">
+    <h3>blog edit</h3>
+    <div id='editblock'>
+
+
+    <form role="form" id="form">
+        <div class="form-group">
+            <h3><a href="javascript:;"><%= post.title%></a></h3>
+            <input type="hidden" name="title" class="form-control" id="blog-title" value="<%= post.title %>" >
+        </div>
+        <div class="form-group">
+            <div id="admin-markdowneditor">
+                <div id="seeeditor" class="tab-pane">
+                    <div class="tab-content">
+                        <div id="markdowneditor" class="tab-pane active">
+                            <div id="wmd-editor-parent" class="control-group">
+                                <div id="wmd-editor-con" class="wmd-panel">
+                                    <div class="padding">
+                                        <div id="wmd-bar-parent">
+                                            <div id="wmd-button-bar">
+                                                <div id="wmd-button-row" class="btn-toolbar">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <textarea id="wmd-input" name="post" placeholder="" class="expand wmd-input"><%= post.post %></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <script type="text/plain" id="myEditor"></script>
+                        </div>
+                    </div>
+                    <div id="wmd-preview-parent" class="control-group"><div id="wmd-preview-con" class="wmd-panel wmd-preview"><div class="padding"><div id="wmd-preview"></div></div></div></div>
+                </div>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="homeRecom"> 首页推荐
+                    <input type="hidden" name='type' value="blog"/>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-success ">提 交</button>
+        </div>
+    </form>
+    <!-- 图片上传 -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">上传图片</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name="pic" id="file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jsfiddle.net -->
+    <div class="modal hide fade in" style="display: block;"><div class="modal-header"><a class="close" data-dismiss="modal">×</a> <h3>嵌入演示代码</h3></div><div class="modal-body"><p style="padding: 5px;">填写在 <a href="http://jsfiddle.net/" target="_blank">http://jsfiddle.net/</a> 获取的嵌入链接(embed)</p><form style="padding: 0px; margin: 0px;"><input type="text" style="display: block; width: 80%; margin-right: auto; margin-left: auto;"></form></div><div class="modal-footer"><button class="btn btn-primary" type="button">OK</button><button class="btn btn-primary" type="button">Cancel</button></div></div>
+
+    </div>
+    <script>
+        var converter1 =new  Markdown.Converter();
+        Markdown.Extra.init(converter1);
+        var editor1 = new Markdown.Editor(converter1);
+        editor1.run();
+
+        $("#form").submit(function(e){
+            e.preventDefault();
+            var re = $("#form").serialize();
+            console.log(re);
+            $.ajax({
+                dataType:'json',
+                data:re,
+                url:'#',
+                type:"post",
+                success:function(result){
+                    if(result.status){
+                        alert(result.msg);
+                        location.href = result.url;
+                    }
+                },
+                error:function(result){
+                    alert('发布失败！')
+                }
+            });
+        });
+        editor1.hooks.set('insertImageDialog', function(callback) {
+            $('#myModal').modal({
+                keyboard: false ,
+                show:true
+            }) ;
+            $("#file")[0].onchange=function(){
+                $.ajaxFileUpload({
+                    url:"/upload",
+                    secureuri:false,
+                    fileElementId:'file',
+                    dataType: 'json',
+                    success: function (data, status)
+                    {
+                        if(data.status){
+                            alert(data.msg);
+                            $("#myModal").modal("hide");
+                            callback(data.img)
+                        }
+                        /*                    if(data.success){
+                         callback(data.data.filename)
+
+                         }else{
+                         // messageTip.show(data.info)
+                         console.log(data.info)
+                         }*/
+                        //loadingTip.hide()
+                    },
+                    error:function(err){
+
+                        alert('失败');
+                    }
+                })
+            };
+            return true; // tell the editor that we'll take care of getting the image url
+        });
+    </script>
+<%- include footer %>

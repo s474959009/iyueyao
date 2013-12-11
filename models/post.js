@@ -5,12 +5,13 @@
 var mongodb = require('./db')
 	,markdown = require('markdown').markdown;
 
-function Post(name, title, post, img ,type){
+function Post(name, title, post, img ,type,homeRecom){
 	this.name = name;
 	this.title= title;
 	this.post = post;
 	this.img = img;
 	this.type = type;
+	this.homeRecom = homeRecom;
 }
 
 Post.prototype.save = function(callback){
@@ -28,10 +29,11 @@ Post.prototype.save = function(callback){
 	var post = {
 		name: this.name
 		,time: time
-		,title: this.title
+		,title: this.title||time.day
 		,post: this.post
 		,type: this.type
 		,img: this.img
+		,homeRecom: this.homeRecom
 	};
 	//打开数据库
 	mongodb.open(function (err, db) {
@@ -125,7 +127,7 @@ Post.getByType = function(type, callback) {
 	});
 };
 
-Post.getOne = function(day, title, type,callback) {
+Post.getOne = function(day, title, type, callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -155,7 +157,7 @@ Post.getOne = function(day, title, type,callback) {
 	});
 };
 
-Post.edit = function(day, title, callback) {
+Post.edit = function(day, title, type , callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -170,7 +172,8 @@ Post.edit = function(day, title, callback) {
 			//根据用户名、发表日期及文章名进行查询
 			collection.findOne({
 				"time.day": day,
-				"title": title
+				"title": title,
+				"type": type
 			}, function (err, doc) {
 				mongodb.close();
 				if (err) {
@@ -182,8 +185,7 @@ Post.edit = function(day, title, callback) {
 	});
 };
 
-Post.update = function(day, title, post, callback) {
-	//打开数据库
+Post.update = function(day, title, post, type, homeRecom, callback) {
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -196,10 +198,11 @@ Post.update = function(day, title, post, callback) {
 			}
 			//更新文章内容
 			collection.update({
+				"type": type,
 				"time.day": day,
 				"title": title
 			}, {
-				$set: {post: post}
+				$set: {post: post,homeRecom:homeRecom}
 			}, function (err) {
 				mongodb.close();
 				if (err) {
@@ -211,7 +214,7 @@ Post.update = function(day, title, post, callback) {
 	});
 };
 //删除一篇文章
-Post.remove = function(day, title, callback) {
+Post.remove = function(day, title, type,callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -226,7 +229,8 @@ Post.remove = function(day, title, callback) {
 			//根据用户名、日期和标题查找并删除一篇文章
 			collection.remove({
 				"time.day": day,
-				"title": title
+				"title": title ,
+				"type": type
 			}, {
 				w: 1
 			}, function (err) {

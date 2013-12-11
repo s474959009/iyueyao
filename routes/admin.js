@@ -19,8 +19,10 @@ var index = function(req,res){
 } ;
 
 var post = function(req,res){
+
 	var currentUser = req.session.user
-		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.img||'',req.body.type);
+		,homeRecom = req.body.homeRecom=='on'?true:false
+		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.img||'',req.body.type,homeRecom);
 
 	post.save(function (err) {
 		if (err) {
@@ -33,17 +35,28 @@ var post = function(req,res){
 } ;
 
 var edit = function(req,res){
-	res.render('edit', {
-		title: 'edit',
-		user: req.session.user,
-		success: req.flash('success').toString(),
-		error: req.flash('error').toString()
-	});
+	var type = req.params.type
+		,renders = type!='blog'?'topic_edit':'blog_edit';
+	Post.edit(req.params.day, req.params.title, req.params.type,function(err,post){
+			if(err){
+				req.flash('error',err);
+				return res.redirect('back');
+			}
+			res.render(renders, {
+				title: 'edit',
+				post:post,
+				user: req.session.user,
+				success: req.flash('success').toString(),
+				error: req.flash('error').toString()
+			});
+
+	})
+
 } ;
 
 var remove = function(req,res){
 	var currentUser = req.session.user;
-	Post.remove( req.params.day, req.params.title, function (err) {
+	Post.remove( req.params.day, req.params.title,req.params.type, function (err) {
 		if (err) {
 			req.flash('error', err);
 			return res.redirect('back');
@@ -53,8 +66,22 @@ var remove = function(req,res){
 	});
 }
 
+var update = function(req,res){
+	var homeRecom = req.body.homeRecom=='on'?true:false
+		,url = '/'+req.params.type+'/'+req.params.day+'/'+req.params.title;
+	console.log(req.body.post);
+	Post.update(req.params.day, req.params.title, req.body.post, req.params.type, homeRecom,function(err){
+		if(err){
+			req.flash('error', err);
+			return res.send({status:'false',msg:'更新失败！'});
+		}
+		req.flash('success', '更新成功!');
+		res.send({status:'true',msg:'更新成功！',url:url});
+	})
+}
 
 exports.index = index ;
 exports.post = post ;
 exports.edit = edit ;
 exports.remove = remove ;
+exports.update = update ;

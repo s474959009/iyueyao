@@ -34,15 +34,22 @@ module.exports = function(app){
 	app.post('/post', checkLogin);
 	app.post('/post', admin.post);
 
+/*	app.post('/update',checkLogin);
+	app.post('/update',admin.update);*/
+
 	app.post('/upload',upload.index);
 
 
 	app.get('/admin',checkLogin);
 	app.get('/admin',admin.index);
-	app.get('/admin/edit/:day/:title',checkLogin);
-	app.get('/admin/edit/:day/:title',admin.edit);
-	app.get('/admin/remove/:day/:title',checkLogin);
-	app.get('/admin/remove/:day/:title',admin.remove);
+	app.get('/admin/edit/:type/:day/:title',checkLogin);
+	app.get('/admin/edit/:type/:day/:title',admin.edit);
+
+	app.post('/admin/edit/:type/:day/:title',checkLogin);
+	app.post('/admin/edit/:type/:day/:title',admin.update);
+
+	app.get('/admin/remove/:type/:day/:title',checkLogin);
+	app.get('/admin/remove/:type/:day/:title',admin.remove);
 
 	app.get('/topic',topic.index);
 	app.get('/topic/:day/:title',topic.detail);
