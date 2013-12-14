@@ -34,6 +34,7 @@ Post.prototype.save = function(callback){
 		,type: this.type
 		,img: this.img
 		,homeRecom: this.homeRecom
+		,comments: []
 	};
 	//打开数据库
 	mongodb.open(function (err, db) {
@@ -150,7 +151,12 @@ Post.getOne = function(day, title, type, callback) {
 					return callback(err);
 				}
 				//解析 markdown 为 html
-				doc.post = markdown.toHTML(doc.post);
+				if (doc) {
+					doc.post = markdown.toHTML(doc.post);
+					/*doc.comments.forEach(function (comment) {
+						comment.content = markdown.toHTML(comment.content);
+					});*/
+				}
 				callback(null, doc);//返回查询的一篇文章
 			});
 		});
@@ -171,9 +177,9 @@ Post.edit = function(day, title, type , callback) {
 			}
 			//根据用户名、发表日期及文章名进行查询
 			collection.findOne({
+				"type": type,
 				"time.day": day,
-				"title": title,
-				"type": type
+				"title": title
 			}, function (err, doc) {
 				mongodb.close();
 				if (err) {
@@ -185,7 +191,7 @@ Post.edit = function(day, title, type , callback) {
 	});
 };
 
-Post.update = function(day, title, post, type, homeRecom, callback) {
+Post.update = function(day, title, post, type, homeRecom, img, callback) {
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -202,7 +208,7 @@ Post.update = function(day, title, post, type, homeRecom, callback) {
 				"time.day": day,
 				"title": title
 			}, {
-				$set: {post: post,homeRecom:homeRecom}
+				$set: {post: post,homeRecom:homeRecom,img:img}
 			}, function (err) {
 				mongodb.close();
 				if (err) {

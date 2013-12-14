@@ -1,4 +1,80 @@
 <%- include header %>
 <div class="container index-section">
     <h3>topic edit</h3>
+    <form role="form" id="topic-form">
+        <div class="form-group">
+            <div class="text-center">
+                <img src="<%= post.img %>" alt="" class="img-thumbnail img-responsive " id="topic-showimg">
+            </div>
+            <div id="upload-img">
+                <input type="file" name="pic" class="btn" id="topic-file">
+            </div>
+            <input type="hidden" name="img" id="topic-img" value=""/>
+        </div>
+        <div class="form-group" >
+            <label for="exampleInputPassword1">标题</label>
+            <h3><a href="javascript:;"><%= post.title%></a></h3>
+            <input type="hidden"  class="form-control" value="<%= post.title %>" name="title" id="exampleInputPassword1" placeholder="标题">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name="post" rows="3" placeholder="内容"><%= post.post %></textarea>
+        </div>
+        <div class="form-group"><input type="checkbox" name="homeRecom" <% if(post.homeRecom) { %>   checked='true' <% } %> > 首页推荐</div>
+        <button type="submit" class="btn btn-success">发布</button>
+        <input type="hidden" name="type" value="topic"/>
+    </form>
+
+    <script src="http://cdn.staticfile.org/jquery/1.9.0/jquery.js"></script>
+
+    <script src="/javascripts/ajaxfileupload.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script>
+        $(function(){
+            $("#topic-file")[0].onchange=function(){
+            $.ajaxFileUpload({
+                url:"/upload",
+                secureuri:false,
+                fileElementId:'topic-file',
+                dataType: 'json',
+                success: function (data, status)
+                {
+                    if(data.status){
+                        upSucc(data.img);
+                    }
+                },
+                error:function(err){
+
+                    alert('失败');
+                }
+            })
+                function upSucc(imgUrl){
+                $('#topic-img').val(imgUrl);
+                $('#topic-showimg').prop({'src':imgUrl}).removeClass('hide');
+
+            }
+             };
+        //topic submit
+            $("#topic-form").submit(function(e){
+            e.preventDefault();
+            $('#upload-img').empty();
+            var re = $("#topic-form").serialize();
+             console.log(re);
+            $.ajax({
+                dataType:'json',
+                data:re,
+                url:'#',
+                type:"post",
+                success:function(result){
+                    if(result.status){
+                        alert(result.msg);
+                    }
+                },
+                error:function(result){
+                    alert('发布失败！')
+                }
+            });
+        });
+        })
+    </script>
+
 <%- include footer %>

@@ -6,13 +6,16 @@
 <div class="container index-section">
     <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
     <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <p class="info">
-        作者：<%= post.name %> |
-        日期：<%= post.time.minute %>
-    </p>
-    <h3><%- post.title %></h3>
-    <p>  <img src="<%- post.img %>" alt="" class="img-thumbnail img-responsive "> </p>
-    <p><%- post.post %></p>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+        <p class="info">作者：<%= post.name %> |日期：<%= post.time.minute %> </p>
+            <h3><%- post.title %></h3>
+            <p>  <img src="<%- post.img %>" alt="" class="img-thumbnail img-responsive "> </p>
+            <p><%- post.post %></p>
+        </div>
+    </div>
 
 
+    <%- include comment %>
     <%- include footer %>

@@ -88,7 +88,7 @@
             </div>
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="homeRecom"> 首页推荐
+                    <input type="checkbox" name="homeRecom"  <% if(post.homeRecom) { %>   checked='true' <% } %>> 首页推荐
                     <input type="hidden" name='type' value="blog"/>
                 </label>
             </div>
@@ -127,7 +127,6 @@
         $("#form").submit(function(e){
             e.preventDefault();
             var re = $("#form").serialize();
-            console.log(re);
             $.ajax({
                 dataType:'json',
                 data:re,

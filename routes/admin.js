@@ -55,7 +55,6 @@ var edit = function(req,res){
 } ;
 
 var remove = function(req,res){
-	var currentUser = req.session.user;
 	Post.remove( req.params.day, req.params.title,req.params.type, function (err) {
 		if (err) {
 			req.flash('error', err);
@@ -64,13 +63,12 @@ var remove = function(req,res){
 		req.flash('success', '删除成功!');
 		res.redirect('/');
 	});
-}
+};
 
 var update = function(req,res){
 	var homeRecom = req.body.homeRecom=='on'?true:false
 		,url = '/'+req.params.type+'/'+req.params.day+'/'+req.params.title;
-	console.log(req.body.post);
-	Post.update(req.params.day, req.params.title, req.body.post, req.params.type, homeRecom,function(err){
+	Post.update(req.params.day, req.params.title, req.body.post, req.params.type,  homeRecom, req.body.img, function(err){
 		if(err){
 			req.flash('error', err);
 			return res.send({status:'false',msg:'更新失败！'});
@@ -78,7 +76,9 @@ var update = function(req,res){
 		req.flash('success', '更新成功!');
 		res.send({status:'true',msg:'更新成功！',url:url});
 	})
-}
+};
+
+
 
 exports.index = index ;
 exports.post = post ;

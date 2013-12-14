@@ -12,6 +12,7 @@ var admin = require('./admin')
 	,register =require('./register')
 	,User = require('../models/user')
 	,Post = require('../models/post.js')
+	,Comment = require('../models/comment.js')
 	,upload = require('./upload');
 
 module.exports = function(app){
@@ -56,20 +57,25 @@ module.exports = function(app){
 
 	app.get('/blog',blog.index);
 	app.get('/blog/:day/:title', blog.detail);
+
+	app.use(function (req, res) {
+		res.render("404");
+	});
+
+	function checkLogin(req, res, next) {
+		if (!req.session.user) {
+			req.flash('error', '未登录!');
+			res.redirect('/login');
+		}
+		next();
+	}
+
+	function checkNotLogin(req, res, next) {
+		if (req.session.user) {
+			req.flash('error', '已登录!');
+			res.redirect('back');//返回之前的页面
+		}
+		next();
+	}
 };
 
-function checkLogin(req, res, next) {
-	if (!req.session.user) {
-		req.flash('error', '未登录!');
-		res.redirect('/login');
-	}
-	next();
-}
-
-function checkNotLogin(req, res, next) {
-	if (req.session.user) {
-		req.flash('error', '已登录!');
-		res.redirect('back');//返回之前的页面
-	}
-	next();
-}
