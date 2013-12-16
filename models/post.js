@@ -86,9 +86,12 @@ Post.getAll = function(name, callback) {
 					if (err) {
 						return callback(err);//失败！返回 err
 					}
-					docs.forEach(function (doc) {
+					if (doc) {
 						doc.post = markdown.toHTML(doc.post);
-					});
+						doc.comments.forEach(function (comment) {
+							comment.content = markdown.toHTML(comment.content);
+						});
+					}
 					callback(null, docs);//成功！以数组形式返回查询的结果
 				});
 		});

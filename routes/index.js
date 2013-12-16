@@ -12,7 +12,6 @@ var admin = require('./admin')
 	,register =require('./register')
 	,User = require('../models/user')
 	,Post = require('../models/post.js')
-	,Comment = require('../models/comment.js')
 	,upload = require('./upload');
 
 module.exports = function(app){
@@ -34,6 +33,8 @@ module.exports = function(app){
 
 	app.post('/post', checkLogin);
 	app.post('/post', admin.post);
+
+	app.post('/commont/:day/:title',admin.commont);
 
 /*	app.post('/update',checkLogin);
 	app.post('/update',admin.update);*/
