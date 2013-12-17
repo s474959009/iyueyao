@@ -4,14 +4,19 @@
 var Post = require('../models/post');
 
 var index = function(req,res){
-	Post.getByType('topic',function(err,post){
+	var page = req.query.p ? parseInt(req.query.p) : 1;
+	Post.getFive('topic', page ,function(err,posts,total){
 		if (err) {
+			posts = [];
 			req.flash('error', err);
 			return res.redirect('/');
 		}
 		res.render('topic',{
 			title:'topic'
-			,posts:post
+			,posts:posts
+			,page:page
+			,isFirstPage: (page - 1) == 0
+			,isLastPage: ((page - 1) * 5 + posts.length) == total
 			,user: req.session.user
 			,success: req.flash('success').toString()
 			,error: req.flash('error').toString()

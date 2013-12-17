@@ -38,3 +38,9 @@ h1 {
     padding-top:20px;
     border-top:1px solid #f1f1f1;
 }
+.disable>a{
+    color: #999;
+    background-color: #fff;
+    border-color: #ddd;
+    cursor: not-allowed;
+}

@@ -1,5 +1,6 @@
 
 <div class="row ">
+    <% if(post.comments.length>0) { %>
     <div class="comment col-md-8 col-md-offset-2">
         <% post.comments.forEach(function (comment, index) { %>
         <p><a href="<%= comment.website %>"><%= comment.name %></a>
@@ -7,6 +8,7 @@
         <p><%- comment.content %></p>
         <% }) %>
     </div>
+    <% }else{ }%>
     <form class="comment form-horizontal col-md-8 col-md-offset-2" action="/commont/<%= post.time.day %>/<%= post.title %>" method="post">
         <div class="form-group"> 姓名：<input class="form-control" type="text" name="name" /></div>
         <div class="form-group">邮箱：<input class="form-control" type="text" name="email" /></div>

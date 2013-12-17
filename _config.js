@@ -5,6 +5,7 @@ module.exports = {
 	cookieSecret: '',
 	db: '',
 	host: '',
+	prot: '',
 	qiniuAK:'',
 	qiniuSK:'',
 	qiniu:''
