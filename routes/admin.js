@@ -17,7 +17,7 @@ var index = function(req,res){
 			error: req.flash('error').toString()
 		});
 	});
-} ;
+};
 
 var post = function(req,res){
 
@@ -100,9 +100,16 @@ var commont = function(req,res){
 		req.flash('success', '留言成功!');
 		res.redirect('back');
 	});
-}
+};
 
+var about = function(req,res){
+    res.render('about',{
+        title: '关于我',
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    })
 
+};
 
 exports.index = index ;
 exports.post = post ;
@@ -110,3 +117,4 @@ exports.edit = edit ;
 exports.remove = remove ;
 exports.update = update ;
 exports.commont = commont ;
+exports.about = about ;

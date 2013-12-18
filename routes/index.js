@@ -59,6 +59,8 @@ module.exports = function(app){
 	app.get('/blog',blog.index);
 	app.get('/blog/:uuid', blog.detail);
 
+    app.get('/about',admin.about);
+
 	app.use(function (req, res) {
 		res.render("404");
 	});
