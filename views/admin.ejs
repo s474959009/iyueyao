@@ -164,11 +164,11 @@
                             <tr>
                                 <td><%- index %></td>
                                 <td><%- post.type %></td>
-                                <td><a href="/<%= post.type %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></td>
+                                <td><a href="/<%= post.type %>/<%= post.uuid %>"><%= post.title %></a></td>
                                 <td><%- post.time.minute %></td>
                                 <td>pv</td>
-                                <td><a href="/admin/edit/<%= post.type %>/<%= post.time.day %>/<%= post.title %>">Edit</a> &nbsp;&nbsp;
-                                    <a href="/admin/remove/<%= post.type %>/<%= post.time.day %>/<%= post.title %>">Delete</a></td>
+                                <td><a href="/admin/edit/<%= post.type %>/<%= post.uuid %>">Edit</a> &nbsp;&nbsp;
+                                    <a href="/admin/remove/<%= post.type %>/<%= post.uuid %>">Delete</a></td>
                             </tr>
 
                             <% }) %>

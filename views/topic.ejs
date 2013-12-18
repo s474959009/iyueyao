@@ -5,7 +5,7 @@
     <p>欢迎来到这里哦 <%= title %></p>
 
     <% posts.forEach(function (post, index) { %>
-    <p><h2><a href="/<%= post.type %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h2></p>
+    <p><h2><a href="/<%= post.type %>/<%= post.uuid %>"><%= post.title %></a></h2></p>
     <p class="info">
         作者：<a href="#"><%= post.name %></a> |
         日期：<%= post.time.minute %>

@@ -25,7 +25,7 @@ module.exports = function(app){
 
 
 	app.get('/login', checkNotLogin);
-  app.get("/login",login.index);
+    app.get("/login",login.index);
 	app.post('/login', checkNotLogin);
 	app.post('/login',login.signin);
 	app.get('/logout', checkLogin);
@@ -34,7 +34,7 @@ module.exports = function(app){
 	app.post('/post', checkLogin);
 	app.post('/post', admin.post);
 
-	app.post('/commont/:day/:title',admin.commont);
+	app.post('/commont/:uuid',admin.commont);
 
 /*	app.post('/update',checkLogin);
 	app.post('/update',admin.update);*/
@@ -44,20 +44,20 @@ module.exports = function(app){
 
 	app.get('/admin',checkLogin);
 	app.get('/admin',admin.index);
-	app.get('/admin/edit/:type/:day/:title',checkLogin);
-	app.get('/admin/edit/:type/:day/:title',admin.edit);
+	app.get('/admin/edit/:type/:uuid',checkLogin);
+	app.get('/admin/edit/:type/:uuid',admin.edit);
 
-	app.post('/admin/edit/:type/:day/:title',checkLogin);
-	app.post('/admin/edit/:type/:day/:title',admin.update);
+	app.post('/admin/edit/:type/:uuid',checkLogin);
+	app.post('/admin/edit/:type/:uuid',admin.update);
 
-	app.get('/admin/remove/:type/:day/:title',checkLogin);
-	app.get('/admin/remove/:type/:day/:title',admin.remove);
+	app.get('/admin/remove/:type/:uuid',checkLogin);
+	app.get('/admin/remove/:type/:uuid',admin.remove);
 
 	app.get('/topic',topic.index);
-	app.get('/topic/:day/:title',topic.detail);
+	app.get('/topic/:uuid',topic.detail);
 
 	app.get('/blog',blog.index);
-	app.get('/blog/:day/:title', blog.detail);
+	app.get('/blog/:uuid', blog.detail);
 
 	app.use(function (req, res) {
 		res.render("404");

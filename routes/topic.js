@@ -27,13 +27,13 @@ var index = function(req,res){
 
 
 var detail = function(req,res){
-	Post.getOne( req.params.day, req.params.title, 'topic',function (err, post) {
+	Post.getOne( req.params.uuid, 'topic',function (err, post) {
 		if (err) {
 			req.flash('error', err);
 			return res.redirect('/');
 		}
 		res.render('topic_detail', {
-			title: req.params.title,
+			title: post.title,
 			post: post,
 			user: req.session.user,
 			success: req.flash('success').toString(),

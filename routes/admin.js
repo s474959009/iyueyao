@@ -39,7 +39,7 @@ var post = function(req,res){
 var edit = function(req,res){
 	var type = req.params.type
 		,renders = type!='blog'?'topic_edit':'blog_edit';
-	Post.edit(req.params.day, req.params.title, req.params.type,function(err,post){
+	Post.edit(req.params.uuid, req.params.type,function(err,post){
 			if(err){
 				req.flash('error',err);
 				return res.redirect('back');
@@ -57,7 +57,7 @@ var edit = function(req,res){
 } ;
 
 var remove = function(req,res){
-	Post.remove( req.params.day, req.params.title,req.params.type, function (err) {
+	Post.remove( req.params.uuid,req.params.type, function (err) {
 		if (err) {
 			req.flash('error', err);
 			return res.redirect('back');
@@ -69,8 +69,8 @@ var remove = function(req,res){
 
 var update = function(req,res){
 	var homeRecom = req.body.homeRecom=='on'?true:false
-		,url = '/'+req.params.type+'/'+req.params.day+'/'+req.params.title;
-	Post.update(req.params.day, req.params.title, req.body.post, req.params.type,  homeRecom, req.body.img, function(err){
+		,url = '/'+req.params.type+'/'+req.params.uuid;
+	Post.update(req.params.uuid, req.body.post, req.params.type,  homeRecom, req.body.img, function(err){
 		if(err){
 			req.flash('error', err);
 			return res.send({status:'false',msg:'更新失败！'});
@@ -91,7 +91,7 @@ var commont = function(req,res){
 		time: time,
 		content: req.body.content
 	};
-	var newComment = new Comment( req.params.day, req.params.title, comment);
+	var newComment = new Comment( req.params.uuid, comment);
 	newComment.save(function (err) {
 		if (err) {
 			req.flash('error', err);

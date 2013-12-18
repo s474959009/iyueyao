@@ -170,7 +170,7 @@ Post.getByType = function(type, callback) {
 	});
 };
 
-Post.getOne = function(day, title, type, callback) {
+Post.getOne = function(uuid, type, callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -184,8 +184,7 @@ Post.getOne = function(day, title, type, callback) {
 			}
 			//根据用户名、发表日期及文章名进行查询
 			collection.findOne({
-				"time.day": day,
-				"title": title ,
+				"uuid": uuid ,
 				"type": type
 			}, function (err, doc) {
 				mongodb.close();
@@ -205,7 +204,7 @@ Post.getOne = function(day, title, type, callback) {
 	});
 };
 
-Post.edit = function(day, title, type , callback) {
+Post.edit = function(uuid, type , callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -220,8 +219,7 @@ Post.edit = function(day, title, type , callback) {
 			//根据用户名、发表日期及文章名进行查询
 			collection.findOne({
 				"type": type,
-				"time.day": day,
-				"title": title
+				"uuid": uuid
 			}, function (err, doc) {
 				mongodb.close();
 				if (err) {
@@ -233,7 +231,7 @@ Post.edit = function(day, title, type , callback) {
 	});
 };
 
-Post.update = function(day, title, post, type, homeRecom, img, callback) {
+Post.update = function(uuid, post, type, homeRecom, img, callback) {
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -247,8 +245,7 @@ Post.update = function(day, title, post, type, homeRecom, img, callback) {
 			//更新文章内容
 			collection.update({
 				"type": type,
-				"time.day": day,
-				"title": title
+				"uuid": uuid
 			}, {
 				$set: {post: post,homeRecom:homeRecom,img:img}
 			}, function (err) {
@@ -262,7 +259,7 @@ Post.update = function(day, title, post, type, homeRecom, img, callback) {
 	});
 };
 //删除一篇文章
-Post.remove = function(day, title, type,callback) {
+Post.remove = function(uuid, type,callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
 		if (err) {
@@ -276,8 +273,7 @@ Post.remove = function(day, title, type,callback) {
 			}
 			//根据用户名、日期和标题查找并删除一篇文章
 			collection.remove({
-				"time.day": day,
-				"title": title ,
+				"uuid": uuid ,
 				"type": type
 			}, {
 				w: 1

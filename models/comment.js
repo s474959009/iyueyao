@@ -3,17 +3,14 @@
  */
 var mongodb = require('./db');
 
-function Comment(day, title, comment) {
-	this.day = day;
-	this.title = title;
+function Comment(uuid, comment) {
+	this.uuid = uuid;
 	this.comment = comment;
 }
 Comment.prototype.save = function(callback) {
-	var day = this.day,
-		title = this.title,
+	var uuid = this.uuid,
 		comment = this.comment;
 	//打开数据库
-	console.log(comment)
 	mongodb.open(function (err, db) {
 		if (err) {
 			return callback(err);
@@ -26,8 +23,7 @@ Comment.prototype.save = function(callback) {
 			}
 			//通过用户名、时间及标题查找文档，并把一条留言对象添加到该文档的 comments 数组里
 			collection.update({
-				"time.day": day,
-				"title": title
+				"uuid": uuid
 			}, {
 				$push: {"comments": comment}
 			} , function (err) {
