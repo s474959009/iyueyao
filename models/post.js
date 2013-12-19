@@ -63,7 +63,6 @@ Post.prototype.save = function(callback){
 		});
 	});
 }
-
 //读取文章及其相关信息
 Post.getAll = function(name, callback) {
 	//打开数据库
@@ -169,6 +168,35 @@ Post.getByType = function(type, callback) {
 		});
 	});
 };
+//获得存档
+Post.getArchive = function(callback){
+    mongodb.open(function(err,db){
+        if(err) {
+            return callback(err);
+        }
+        db.collection('posts',function(err,collection){
+            if(err){
+                mongodb.close();
+                return callback(err);
+            }
+            var query = {}
+            collection.find({}, {
+                "uuid": 1,
+                "time": 1,
+                "title": 1,
+                "type": 1
+            }).sort({
+                time:-1
+            }).toArray(function(err,docs){
+                mongodb.close();
+                if(err){
+                    return callback(err);
+                }
+                callback(null, docs);
+            })
+        })
+    })
+} ;
 
 Post.getOne = function(uuid, type, callback) {
 	//打开数据库

@@ -9,6 +9,7 @@ var admin = require('./admin')
 	,topic = require('./topic')
 	,blog = require('./blog')
 	,login = require('./login')
+    ,archive = require('./archive')
 	,register =require('./register')
 	,User = require('../models/user')
 	,Post = require('../models/post.js')
@@ -58,6 +59,8 @@ module.exports = function(app){
 
 	app.get('/blog',blog.index);
 	app.get('/blog/:uuid', blog.detail);
+
+    app.get('/archive',archive.index);
 
     app.get('/about',admin.about);
 
