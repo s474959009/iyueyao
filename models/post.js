@@ -197,7 +197,7 @@ Post.getArchive = function(callback){
         })
     })
 } ;
-
+//提取一个
 Post.getOne = function(uuid, type, callback) {
 	//打开数据库
 	mongodb.open(function (err, db) {
@@ -231,6 +231,11 @@ Post.getOne = function(uuid, type, callback) {
 		});
 	});
 };
+//tag
+Post.getTag = function(callback){
+
+}
+
 
 Post.edit = function(uuid, type , callback) {
 	//打开数据库
