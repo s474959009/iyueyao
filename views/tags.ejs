@@ -1,0 +1,18 @@
+
+<%- include header %>
+
+<div class="container index-section ">
+    <% if(posts.length>0) { %>
+    <% }else{ %>
+       <h3>暂无任何标签：）</h3>
+    <% } %>
+    <% posts.forEach(function (tag, index) { %>
+    <a class="tag" href="/tags/<%= tag %>"><%= tag %></a>
+    <% }) %>
+
+
+    <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
+    <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
+
+
+    <%- include footer %>

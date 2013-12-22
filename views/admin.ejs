@@ -16,16 +16,18 @@
     <script src="/javascripts/tab.js"></script>
     <script src="/javascripts/jqBootstrapValidation.js"></script>
     <style>
-        .btn{background: #f3f3f3;}
+        .btn{background: #fff;}
         .btn.btn-success{background-color: #47a447;}
+        .checkbox input[type="checkbox"]{
+            margin-left:0px;
+        }
     </style>
 
 </head>
-<body style="">
+<body>
 <header class="navbar navbar-fixed-top index-header" role="banner">
     <div class="container">
         <nav class="navbar" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -36,7 +38,6 @@
                 <a class="navbar-brand" href="/">YueYao</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="/topic">topic</a></li>
@@ -90,13 +91,24 @@
                                     <div id="wmd-preview-parent" class="control-group"><div id="wmd-preview-con" class="wmd-panel wmd-preview"><div class="padding"><div id="wmd-preview"></div></div></div></div>
                                 </div>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="homeRecom"> 首页推荐
-                                    <input type="hidden" name='type' value="blog"/>
-                                </label>
+
+                        </div>
+                        <div class="form-group">
+                           <div class="row">
+                               <div class="checkbox col-md-6 ">
+
+                                       首页推荐<input type="checkbox" name="homeRecom">
+                                       <input type="hidden" name='type' value="blog"/>
+
+                               </div>
+                               <div class="col-md-6">
+                                   <input type="text" name="tags" class="form-control" id="" placeholder="标签"/>
+                               </div>
+                           </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success ">发 布</button>
                             </div>
-                            <button type="submit" class="btn btn-success ">提 交</button>
                         </div>
                     </form>
                     <!-- 图片上传 -->
@@ -138,6 +150,8 @@
                             <input type="text" class="form-control" name="title" id="exampleInputPassword1" placeholder="标题">
                         </div>
                         <div class="form-group">
+                            <textarea class="form-control" name="desc" rows="3" placeholder="描述"></textarea>
+                        </div>                        <div class="form-group">
                             <textarea class="form-control" name="post" rows="3" placeholder="内容"></textarea>
                         </div>
                         <div class="form-group"><input type="checkbox" name="homeRecom"> 首页推荐</div>

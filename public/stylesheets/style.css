@@ -6,7 +6,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 .index-header{
     background-color: rgba(255,255,255,0.5);
-    border-bottom: 1px inset rgba(0,0,0,0.2);
+    border-bottom: 1px inset rgba(0,0,0,0.1);
     height:52px;
 }
 .nav>li>a, .nav>li>a{
@@ -18,7 +18,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .index-section{
     margin-top:58px ;
 }
-.g-footer{margin-top: 40px;padding-top: 40px; padding-bottom: 40px;text-align: center;border-top: 1px solid #eee;}
+.g-footer{color:#656565;margin-top: 40px;padding-top: 40px; padding-bottom: 40px;text-align: center;border-top: 1px solid #eee;}
+.g2-footer{
+   /* background:#e7e7e7;*/
+    border-top: 1px solid #eee;
+    margin-top: 40px;
+    padding-top: 40px;
+    height: 120px;
+}
 .margin-base-vertical {
     margin: 40px 0;
 }
@@ -43,4 +50,35 @@ h1 {
     background-color: #fff;
     border-color: #ddd;
     cursor: not-allowed;
+}
+.topic-index{
+    margin-top: 60px;
+    border-left: 1px dotted #eee;
+    padding-left: 40px;
+}
+.topic-title{
+    color: #353535;
+    line-height: 1;
+}
+.topic-index p{
+    color: #cecece;
+    line-height: 1;
+}
+.topic-content{
+    color: #777;
+    font-size:16px;
+}
+
+.blog-title{
+    color: #414243;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.4;
+    -webkit-transition: all .05s ease-in-out;
+    -moz-transition: all .05s ease-in-out;
+    -o-transition: all .05s ease-in-out;
+    transition: all .05s ease-in-out;
+}
+.blog-content{
+    color: #414243;
 }

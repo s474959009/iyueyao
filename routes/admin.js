@@ -23,8 +23,10 @@ var post = function(req,res){
 
 	var currentUser = req.session.user
 		,homeRecom = req.body.homeRecom=='on'?true:false
-		,post = new Post(currentUser.name, req.body.title, req.body.post,req.body.img||'',req.body.type,homeRecom);
-
+		,img = req.body.img?req.body.img:''
+		,desc = req.body.desc?req.body.desc:''
+		,tags = req.body.tags? req.body.tags.split(','):[]
+		,post = new Post(currentUser.name, req.body.title, req.body.post,img,req.body.type,homeRecom,tags,desc);
 	post.save(function (err) {
 		if (err) {
 			req.flash('error', err);

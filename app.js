@@ -8,11 +8,14 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
 
 var MongoStore = require('connect-mongo')(express);
 var settings = require('./config');
 var flash = require('connect-flash');
 var User = require('./models/user') ;
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 var app = express();
 
 
@@ -23,7 +26,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(flash());
 app.use(express.favicon());
-app.use(express.logger('dev'));
+app.use(express.logger({stream: accessLog}));
 app.use(express.bodyParser({keepExtensions: true,uploadDir:'./uploads'}));
 app.use(express.methodOverride());
 app.use(express.cookieParser());
@@ -37,7 +40,11 @@ app.use(express.session({
 }));
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(function (err, req, res, next) {
+	var meta = '[' + new Date() + '] ' + req.url + '\n';
+	errorLog.write(meta + err.stack + '\n');
+	next();
+});
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());

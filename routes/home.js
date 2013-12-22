@@ -4,10 +4,11 @@
 var Post = require('../models/post');
 
 var index = function(req,res){
-	Post.getAll(null, function (err, posts) {
+	Post.getTopic( function (err, posts) {
 		if (err) {
 			posts = [];
 		}
+		console.log(posts);
 		res.render('index', {
 			title: '主页',
 			user: req.session.user,
