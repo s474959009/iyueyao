@@ -9,7 +9,7 @@ var admin = require('./admin')
 	,topic = require('./topic')
 	,blog = require('./blog')
 	,login = require('./login')
-  ,archive = require('./archive')
+    ,archive = require('./archive')
 	,register =require('./register')
 	,tags = require('./tag')
 	,User = require('../models/user')
@@ -27,7 +27,7 @@ module.exports = function(app){
 
 
 	app.get('/login', checkNotLogin);
-  app.get("/login",login.index);
+    app.get("/login",login.index);
 	app.post('/login', checkNotLogin);
 	app.post('/login',login.signin);
 	app.get('/logout', checkLogin);
@@ -61,12 +61,12 @@ module.exports = function(app){
 	app.get('/blog',blog.index);
 	app.get('/blog/:uuid', blog.detail);
 
-  app.get('/archive',archive.index);
+    app.get('/archive',archive.index);
 
-  app.get('/tags',tags.index);
-  app.get('/tags/:tag',tags.tag);
+    app.get('/tags',tags.index);
+    app.get('/tags/:tag',tags.tag);
 
-  app.get('/about',admin.about);
+    app.get('/about',admin.about);
 
 	app.get('*',function(req,res,next){
 		//console.log(req.ip);

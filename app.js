@@ -25,7 +25,7 @@ app.set('views', __dirname + '/views');
 
 app.set('view engine', 'ejs');
 app.use(flash());
-app.use(express.favicon());
+//app.use(express.favicon());
 app.use(express.logger({stream: accessLog}));
 app.use(express.bodyParser({keepExtensions: true,uploadDir:'./uploads'}));
 app.use(express.methodOverride());
