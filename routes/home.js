@@ -8,7 +8,6 @@ var index = function(req,res){
 		if (err) {
 			posts = [];
 		}
-		console.log(posts);
 		res.render('index', {
 			title: '主页',
 			user: req.session.user,

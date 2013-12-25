@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        .list{
+            margin:10px ;
+            padding:4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<% posts.forEach(function (post, index) { %>
+<div class="list">
+<p><h2><%= post.title %></h2> <%= post.type %></p>
+    <p><a href="/test/<%- post.uuid %>"> GO</a></p>
+<p class="info">
+    作者：<a href="#"><%= post.name %></a> |
+    日期：<%= post.time.minute %>
+</p>
+<p><%- post.post %></p>
+</div>
+<% }) %>
+
+
+
+<form action="/test" method="post">
+
+    <input type="text" name="title" value="a"/>
+    <input type="text" name="img" value="a"/>
+    <input type="text" name="post" value="aaaaa"/>
+    <input type="text" name="desc" value="aaaaaaaa"/>
+    <input type="text" name="type" value="aaaaaaaa"/>
+    <input type="text" name="homerecom" value="asdfasfa"/>
+    <input type="text" name="tag" value="aa,aa"/>
+    <input type="submit" value="提交"/>
+</form>
+</body>
+</html>
