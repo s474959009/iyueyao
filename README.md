@@ -2,17 +2,8 @@ Node.js + Express + Mongodb + Bootstrap3实践
 -------------------------------------------
 2013/12
 
-一些约定：
+12.25 使用Mongoose
 
-  - route下的每个模块都有index接口指向默认地址  12.5
-
-  - config.js 抽象出来作为全局配置（_config作为示例）
-
-
-log:
-
-  - 使用 qiniu 存储图片。          12.8
-
-  - 修改markdown editor ui.prompt  12.8
-
-  - 增加detail.ejs              12.8
+1. Express [API](http://expressjs.jser.us/api.html)
+2. Bootstrap3 [Doc](http://v3.bootcss.com/)
+3. Mongoose [API](http://mongoosejs.com/docs)
