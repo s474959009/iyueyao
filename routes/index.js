@@ -9,26 +9,33 @@ var admin = require('./admin')
 	,topic = require('./topic')
 	,blog = require('./blog')
 	,login = require('./login')
-  ,archive = require('./archive')
-	,register =require('./register')
+    ,archive = require('./archive')
+    ,register =require('./register')
 	,tags = require('./tag')
 	,test = require('./test')
 	,User = require('../models/user')
-	,Post = require('../models/post.js')
-	,upload = require('./upload');
+	,Post = require('../models/post_mongoose')
+	,upload = require('./upload')
+    ,config = require('../config');
 
 module.exports = function(app){
 
 	app.get('/', home.index);
 
-	app.get('/reg', checkNotLogin);
-	app.get('/reg', register.index);
-	app.post('/reg', checkNotLogin);
-	app.post('/reg', register.active);
+	if(config.development){
+        app.get('/reg', checkNotLogin);
+        app.get('/reg', register.index);
+        app.post('/reg', checkNotLogin);
+        app.post('/reg', register.active);
+
+        app.get('/test',test.index);
+        app.get('/test/:uuid',test.detail);
+        app.post('/test',test.post);
+    }
 
 
 	app.get('/login', checkNotLogin);
-  app.get("/login",login.index);
+    app.get("/login",login.index);
 	app.post('/login', checkNotLogin);
 	app.post('/login',login.signin);
 	app.get('/logout', checkLogin);
@@ -37,10 +44,7 @@ module.exports = function(app){
 	app.post('/post', checkLogin);
 	app.post('/post', admin.post);
 
-	app.post('/commont/:uuid',admin.commont);
-
-/*	app.post('/update',checkLogin);
-	app.post('/update',admin.update);*/
+	//app.post('/commont/:uuid',admin.commont);
 
 	app.post('/upload',upload.index);
 
@@ -62,16 +66,14 @@ module.exports = function(app){
 	app.get('/blog',blog.index);
 	app.get('/blog/:uuid', blog.detail);
 
-  app.get('/archive',archive.index);
+    app.get('/archive',archive.index);
 
-  app.get('/tags',tags.index);
-  app.get('/tags/:tag',tags.tag);
+    app.get('/tags',tags.index);
+    app.get('/tags/:tag',tags.tag);
 
-  app.get('/about',admin.about);
+    app.get('/about',admin.about);
 
-	app.get('/test',test.index);
-	app.get('/test/:uuid',test.detail);
-	app.post('/test',test.post);
+
 
 	app.get('*',function(req,res,next){
 		//console.log(req.ip);

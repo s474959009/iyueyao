@@ -6,7 +6,7 @@ var Post = require('../models/post_mongoose');
 
 var index = function(req,res){
 	var page = req.query.p ? parseInt(req.query.p) : 1;
-	Post.getTag('aaa',function(err,posts){
+	Post.search('asdf',function(err,posts){
 		res.render('test',{
 			title: 'edit',
 			posts:posts

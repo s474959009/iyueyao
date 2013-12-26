@@ -1,18 +1,24 @@
 
 <%- include header %>
 <div class="container index-section">
-    <h1><%= title %></h1>
-    <p>欢迎来到这里哦 <%= title %></p>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        <% posts.forEach(function (post, index) { %>
+        <div class="topic-list">
+            <h2 class="topic-title"><a href="/<%= post.type %>/<%= post.uuid %>"><%= post.title %></a></h2>
+            <p class="info">
+                <small> <%= post.time.minute %></small>
+            </p>
+            <%- post.post %>
+        </div>
+        <% }) %>
 
-    <% posts.forEach(function (post, index) { %>
-    <p><h2><a href="/<%= post.type %>/<%= post.uuid %>"><%= post.title %></a></h2></p>
-    <p class="info">
-        作者：<a href="#"><%= post.name %></a> |
-        日期：<%= post.time.minute %>
-    </p>
-    <p><%- post.post %></p>
-    <% }) %>
-    <%- include paging %>
+        <%- include paging %>
+        </div>
+    </div>
+
+
+
 
 
     <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>

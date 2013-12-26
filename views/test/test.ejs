@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        .list{
+            margin:10px ;
+            padding:4px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+<div class="col-md-8 col-md-offset-2">
+    <% var lastYear = 0 %>
+    <% posts.forEach(function (post, index) { %>
+    <% if (lastYear != post.time.year) { %>
+    <li><h3><%= post.time.year %></h3></li>
+    <% lastYear = post.time.year } %>
+    <li><time><%= post.time.day %></time></li>
+    <li><a href="/<%= post.type %>/<%= post.uuid %>"><%= post.title %></a></li>
+    <% }) %>
+</div>
+
+
+
+<form action="/test" method="post">
+
+    <input type="text" name="title" value="a"/>
+    <input type="text" name="img" value="a"/>
+    <input type="text" name="post" value="aaaaa"/>
+    <input type="text" name="desc" value="aaaaaaaa"/>
+    <input type="text" name="type" value="aaaaaaaa"/>
+    <input type="text" name="homerecom" value="asdfasfa"/>
+    <input type="text" name="tag" value="aa,aa"/>
+    <input type="submit" value="提交"/>
+</form>
+</body>
+</html>

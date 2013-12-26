@@ -1,7 +1,7 @@
 /**
  * Created by hebo on 13-12-3.
  */
-var Post = require('../models/post');
+var Post = require('../models/post_mongoose');
 
 var index = function(req,res){
 	var page = req.query.p ? parseInt(req.query.p) : 1;

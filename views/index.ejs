@@ -1,37 +1,69 @@
-<%- include header %>
-<style>
-    .jumbotron{
-    /*background-image:url(<%= posts.img %>);*/
-        background: #fff;
-        font-size: 14px;
-    }
+<!DOCTYPE html>
+<!--
+|\     /|(  ____ \( \      ( \      (  ___  )
+| )   ( || (    \/| (      | (      | (   ) |
+| (___) || (__    | |      | |      | |   | |
+|  ___  ||  __)   | |      | |      | |   | |
+| (   ) || (      | |      | |      | |   | |
+| )   ( || (____/\| (____/\| (____/\| (___) |
+|/     \|(_______/(_______/(_______/(_______)  hello!,什么也没有~~
+-->
+<html>
+<head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="http://ipublic.u.qiniudn.com/iyueyao/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://ipublic.u.qiniudn.com/iyueyao/css/font-awesome.css"  />
+    <link href='http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600' rel='stylesheet'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='http://ipublic.u.qiniudn.com/iyueyao/css/type.css' />
+    <link rel="shortcut icon" href="/favorite.ico" />
+</head>
+<body>
+<header class="navbar navbar-fixed-top index-header" role="banner">
+    <div class="container">
+        <nav class="navbar " role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" title="思萧条月曜夜 励浩荡风鸣冬 ">YueYao</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/topic">话题</a></li>
+                    <li><a href="/blog">博客</a></li>
+                    <li><a href="/archive">存档</a></li>
+                    <li><a href="/tags">标签</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="banner ">
+    <div class="text-center topic-box">
+        <h2 class="topic-title"><%= posts.title %></h2>
+        <p><%- posts.desc %></p>
+        <a class="btn btn-success" href="/<%= posts.type %>/<%= posts.uuid %>">查看详细</a>
+    </div>
+</div>
 
-</style>
-
-
-  <div class="container index-section">
-
-      <div class="jumbotron">
-          <div class="row">
-              <div class="col-md-5">
-                  <section class="topic-index">
-                     <h2 class="topic-title"><%= posts.title %></h2>
-                     <p><%- posts.desc %></p>
-                  </section>
-              </div>
-              <div class="col-md-7">
-                  <section class="topic-content">
-                      <%- posts.post %>
-                  </section>
-                  <a href="/<%= posts.type %>/<%= posts.uuid %>">查看详细>></a>
-              </div>
-          </div>
-
-
-      </div>
+  <div class="container">
       <script src="http://cdn.staticfile.org/jquery/2.0.3/jquery.js"></script>
       <script src="http://cdn.staticfile.org/twitter-bootstrap/3.0.2/js/bootstrap.min.js"></script>
       <script>
-         $(".jumbotron").height($(window).height()-250);
+          $(function(){
+              setSize();
+              $(window).resize(function(){
+                  setSize();
+              });
+              function setSize(){
+                  $(".banner").height($(window).height());
+              }
+          })
       </script>
       <%- include footer_2 %>

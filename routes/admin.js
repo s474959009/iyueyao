@@ -1,11 +1,11 @@
 /**
  * Created by hebo on 13-12-3.
  */
-var Post = require('../models/post')
+var Post = require('../models/post_mongoose')
 	,Comment = require('../models/comment.js');
 
 var index = function(req,res){
-	Post.getAll(null, function (err, posts) {
+	Post.getAll(function (err, posts) {
 		if (err) {
 			posts = [];
 		}

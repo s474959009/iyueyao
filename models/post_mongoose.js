@@ -84,7 +84,7 @@ Post.getAll = function(callback) {
 		if (err) {
 			return callback(err);
 		}
-	  docs.forEach(function (doc) {
+	    docs.forEach(function (doc) {
 			doc.post = markdown.toHTML(doc.post);
 		});
 		callback(null, docs);
@@ -116,11 +116,12 @@ Post.getByType = function(type, callback) {
 };
 Post.getTopic = function(callback){
 	var query = postModel.find({type:'topic'});
+    query.sort('-time');
 	query.exec(function(err,docs){
 		docs.forEach(function (doc) {
 			doc.post = markdown.toHTML(doc.post);
 		});
-		callback(null, docs)
+		callback(null, docs[0])
 	})
 };
 
@@ -151,15 +152,32 @@ Post.getOne = function(uuid,type,callback) {
 };
 
 Post.getTag = function(tag,callback){
-	var query = postModel.find({tags:tag}) ;
+	var query = postModel.find({},'tags');
+    var baseTags = [];
 	query.exec(function(err,docs){
 		if (err) {
 			return callback(err);
 		}
-		callback(null, docs);
+        docs.forEach(function(doc){
+            if(doc.tags.length){
+                baseTags=baseTags.concat(doc.tags);
+            }
+        })
+		callback(null, baseTags);
 	});
 };
 
+Post.getByTag=function(tag,callback){
+    var query = postModel.find({"tags": tag});
+    query.sort('-time');
+    query.exec(function(err,docs){
+        if (err) {
+            return callback(err);
+        }
+        callback(null, docs);
+    })
+
+}
 
 Post.edit = function(uuid, type , callback) {
 	var query = postModel.findOne({"uuid":uuid,"type":type}) ;
@@ -177,10 +195,10 @@ Post.update = function(uuid, post, type, homeRecom, img, callback) {
 		$set: {post: post,homeRecom:homeRecom,img:img}
 	});
 	query.exec(function(err){
-			if (err) {
-				return callback(err);
-			}
-			callback(null);
+        if (err) {
+            return callback(err);
+        }
+        callback(null);
 	})
 };
 
@@ -205,42 +223,18 @@ Post.getById = function(_id,callback){
 		callback(null,doc);
 	});
 }
-/*
 
-
-//删除一篇文章
 //模糊查询
 Post.search = function(keyword, callback) {
-	mongodb.open(function (err, db) {
-		if (err) {
-			return callback(err);
-		}
-		db.collection('posts', function (err, collection) {
-			if (err) {
-				mongodb.close();
-				return callback(err);
-			}
-			var pattern = new RegExp("^.*" + keyword + ".*$", "i");
-			collection.find({
-				"title": pattern
-			}, {
-				"type": 1,
-				"uuid": 1,
-				"title": 1
-			}).sort({
-					time: -1
-				}).toArray(function (err, docs) {
-					mongodb.close();
-					if (err) {
-						return callback(err);
-					}
-					callback(null, docs);
-				});
-		});
-	});
+    var pattern = new RegExp("^.*" + keyword + ".*$", "i");
+    var query = postModel.find({"title": pattern});
+    query.sort('-time');
+    query.exec(function(err,docs){
+        if (err) {
+            return callback(err);
+        }
+        callback(null, docs);
+    })
 };
-
-//根据_id查询
-*/
 
 module.exports = Post;
